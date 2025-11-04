@@ -1,54 +1,84 @@
-// src/context/AuthContext.jsx
+// src/services/authService.js
 
-import { createContext, useContext, useState, useEffect } from 'react';
-import { authService } from '../services/authService';
+// Use environment variable or fallback to localhost
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
-const AuthContext = createContext(null);
+export const authService = {
+  // Register new admin
+  async register(name, email, password) {
+    try {
+      const response = await fetch(`${API_URL}/admin/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
 
-export const AuthProvider = ({ children }) => {
-  const [admin, setAdmin] = useState(null);
-  const [loading, setLoading] = useState(true);
+      const data = await response.json();
 
-  useEffect(() => {
-    // Check if admin is already logged in
-    const currentAdmin = authService.getCurrentAdmin();
-    setAdmin(currentAdmin);
-    setLoading(false);
-  }, []);
+      if (!response.ok) {
+        throw new Error(data.message || 'Registration failed');
+      }
 
-  const login = async (email, password) => {
-    const adminData = await authService.login(email, password);
-    setAdmin(adminData);
-    return adminData;
-  };
+      return data;
+    } catch (error) {
+      console.error('Registration error:', error);
+      throw error;
+    }
+  },
 
-  const register = async (name, email, password) => {
-    const adminData = await authService.register(name, email, password);
-    setAdmin(adminData);
-    return adminData;
-  };
+  // Login admin
+  async login(email, password) {
+    try {
+      const response = await fetch(`${API_URL}/admin/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-  const logout = async () => {
-    await authService.logout();
-    setAdmin(null);
-  };
+      const data = await response.json();
 
-  const value = {
-    admin,
-    login,
-    register,
-    logout,
-    isAuthenticated: !!admin,
-    loading,
-  };
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-};
+      // Store admin data in localStorage
+      localStorage.setItem('admin', JSON.stringify(data));
+      
+      return data;
+    } catch (error) {
+      console.error('Login error:', error);
+      throw error;
+    }
+  },
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
+  // Logout admin
+  async logout() {
+    try {
+      await fetch(`${API_URL}/admin/auth/logout`, {
+        method: 'POST',
+      });
+
+      // Remove admin data from localStorage
+      localStorage.removeItem('admin');
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Still remove from localStorage even if API call fails
+      localStorage.removeItem('admin');
+    }
+  },
+
+  // Get current admin from localStorage
+  getCurrentAdmin() {
+    const admin = localStorage.getItem('admin');
+    return admin ? JSON.parse(admin) : null;
+  },
+
+  // Check if admin is logged in
+  isAuthenticated() {
+    return this.getCurrentAdmin() !== null;
+  },
 };
