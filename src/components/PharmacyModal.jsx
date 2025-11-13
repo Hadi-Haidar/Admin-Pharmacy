@@ -22,6 +22,9 @@ const PharmacyModal = ({ pharmacy, onClose, onSave }) => {
     status: 'active',
   });
 
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -39,6 +42,10 @@ const PharmacyModal = ({ pharmacy, onClose, onSave }) => {
         workingHours: pharmacy.workingHours || [],
         status: pharmacy.status || 'active',
       });
+      // Set existing image as preview
+      if (pharmacy.imageUrl) {
+        setImagePreview(pharmacy.imageUrl);
+      }
     }
   }, [pharmacy]);
 
@@ -49,19 +56,77 @@ const PharmacyModal = ({ pharmacy, onClose, onSave }) => {
     }));
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        setError('Please select an image file');
+        return;
+      }
+
+      // Validate file size (5MB max)
+      if (file.size > 5 * 1024 * 1024) {
+        setError('Image size must be less than 5MB');
+        return;
+      }
+
+      setSelectedFile(file);
+      setError(null);
+
+      // Create preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setSelectedFile(null);
+    setImagePreview(pharmacy?.imageUrl || null);
+    // Reset file input
+    const fileInput = document.getElementById('pharmacy-image-input');
+    if (fileInput) fileInput.value = '';
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     try {
+      let imageUrl = formData.imageUrl;
+
+      // If new image is selected, upload it first
+      if (selectedFile) {
+        setUploadingImage(true);
+        try {
+          imageUrl = await pharmacyService.uploadImage(selectedFile);
+        } catch (uploadError) {
+          throw new Error('Failed to upload image: ' + uploadError.message);
+        } finally {
+          setUploadingImage(false);
+        }
+      }
+
+      // Prepare data with uploaded image URL
+      const dataToSubmit = {
+        ...formData,
+        imageUrl: imageUrl || formData.imageUrl,
+      };
+
       let result;
       if (pharmacy) {
         // Update existing pharmacy
-        result = await pharmacyService.update(pharmacy.id, formData);
+        result = await pharmacyService.update(pharmacy.id, dataToSubmit);
       } else {
-        // Create new pharmacy
-        result = await pharmacyService.create(formData);
+        // Create new pharmacy - imageUrl is now optional in backend
+        if (!imageUrl) {
+          throw new Error('Please select an image for the pharmacy');
+        }
+        result = await pharmacyService.create(dataToSubmit);
       }
       onSave(result);
     } catch (err) {
@@ -132,30 +197,72 @@ const PharmacyModal = ({ pharmacy, onClose, onSave }) => {
               />
             </div>
 
-            {/* Image URL */}
+            {/* Image Upload */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Image URL *
+                Pharmacy Image * {pharmacy && '(leave empty to keep current)'}
               </label>
-              <input
-                type="url"
-                value={formData.imageUrl}
-                onChange={(e) => handleChange('imageUrl', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                placeholder="https://example.com/pharmacy-image.jpg"
-                required
-              />
-              {formData.imageUrl && (
-                <div className="mt-3">
+              
+              {/* File Input */}
+              <div className="mt-2">
+                <label
+                  htmlFor="pharmacy-image-input"
+                  className="flex items-center justify-center w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-teal-500 transition-colors bg-gray-50 hover:bg-gray-100"
+                >
+                  <div className="text-center">
+                    <svg
+                      className="mx-auto h-12 w-12 text-gray-400"
+                      stroke="currentColor"
+                      fill="none"
+                      viewBox="0 0 48 48"
+                    >
+                      <path
+                        d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <p className="mt-2 text-sm text-gray-600">
+                      <span className="font-semibold text-teal-600">Click to upload</span> or drag and drop
+                    </p>
+                    <p className="text-xs text-gray-500">PNG, JPG, WEBP up to 5MB</p>
+                  </div>
+                </label>
+                <input
+                  id="pharmacy-image-input"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className="hidden"
+                  required={!pharmacy && !imagePreview}
+                />
+              </div>
+
+              {/* Image Preview */}
+              {imagePreview && (
+                <div className="mt-4 relative">
                   <img
-                    src={formData.imageUrl}
+                    src={imagePreview}
                     alt="Preview"
-                    className="w-full h-48 object-cover rounded-lg"
-                    onError={(e) => {
-                      e.target.src = '';
-                      e.target.alt = 'Invalid image URL';
-                    }}
+                    className="w-full h-64 object-cover rounded-lg border-2 border-gray-200"
                   />
+                  {selectedFile && (
+                    <button
+                      type="button"
+                      onClick={handleRemoveImage}
+                      className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-colors shadow-lg"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  )}
+                  {selectedFile && (
+                    <div className="mt-2 text-sm text-gray-600">
+                      <span className="font-medium">Selected:</span> {selectedFile.name} ({(selectedFile.size / 1024 / 1024).toFixed(2)} MB)
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -263,9 +370,17 @@ const PharmacyModal = ({ pharmacy, onClose, onSave }) => {
             <button
               type="submit"
               className="flex-1 px-6 py-3 bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 text-white rounded-lg font-semibold shadow-md hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={loading}
+              disabled={loading || uploadingImage}
             >
-              {loading ? (
+              {uploadingImage ? (
+                <span className="flex items-center justify-center">
+                  <svg className="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                  Uploading Image...
+                </span>
+              ) : loading ? (
                 <span className="flex items-center justify-center">
                   <svg className="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />

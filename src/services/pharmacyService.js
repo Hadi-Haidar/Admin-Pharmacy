@@ -3,6 +3,30 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 export const pharmacyService = {
+  // Upload pharmacy image
+  async uploadImage(file) {
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+
+      const response = await fetch(`${API_URL}/admin/pharmacies/upload-image`, {
+        method: 'POST',
+        body: formData, // Don't set Content-Type header, browser will set it with boundary
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to upload image');
+      }
+
+      return data.imageUrl;
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      throw error;
+    }
+  },
+
   // Get all pharmacies
   async getAll() {
     try {
