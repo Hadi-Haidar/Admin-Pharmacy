@@ -415,11 +415,10 @@ const Register = () => {
           </div>
         </div>
 
-        {/* Bottom Security Note */}
+        {/* Bottom Copyright */}
         <div className="mt-8 text-center">
-          <div className="inline-flex items-center text-sm text-gray-700 bg-white/60 backdrop-blur-sm px-6 py-3 rounded-2xl shadow-lg border border-white/50">
-            <Shield className="w-5 h-5 mr-2.5 text-cyan-600" />
-            <span className="font-semibold">Your data is secure and encrypted</span>
+          <div className="inline-flex items-center text-sm text-gray-600 bg-white/60 backdrop-blur-sm px-6 py-3 rounded-2xl shadow-lg border border-white/50">
+            <span className="font-medium">© 2025 Pharmacy Admin Portal. All rights reserved.</span>
           </div>
         </div>
       </div>
