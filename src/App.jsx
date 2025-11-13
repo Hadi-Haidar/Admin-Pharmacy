@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard';
 import Pharmacies from './pages/Pharmacies';
 import Medicines from './pages/Medicines';
 import Users from './pages/Users';
+import Data from './pages/Data'; // ADD THIS LINE
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
 
@@ -65,6 +66,18 @@ function App() {
               <ProtectedRoute>
                 <Layout>
                   <Users />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* ADD THIS DATA ROUTE */}
+          <Route
+            path="/data"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Data />
                 </Layout>
               </ProtectedRoute>
             }

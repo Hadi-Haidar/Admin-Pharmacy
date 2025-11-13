@@ -150,4 +150,21 @@ export const userService = {
       throw error;
     }
   },
+
+  // Get all pharmacy owners
+  async getAllPharmacyOwners() {
+    try {
+      const response = await fetch(`${API_URL}/admin/pharmacies/owners/all`);
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch pharmacy owners');
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching pharmacy owners:', error);
+      // Return empty array instead of throwing to prevent UI crash
+      return [];
+    }
+  },
 };

@@ -8,6 +8,7 @@ import {
   Store,
   Pill,
   Users,
+  Database,
   FileBarChart,
   Settings,
   LogOut,
@@ -58,6 +59,11 @@ const Sidebar = ({ isOpen, setIsOpen, isCollapsed, setIsCollapsed }) => {
       name: 'Users',
       path: '/users',
       icon: Users,
+    },
+    {
+      name: 'Data',
+      path: '/data',
+      icon: Database,
     },
     {
       name: 'Reports',
