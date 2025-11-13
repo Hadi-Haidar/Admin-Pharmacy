@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Menu, Bell, User, Settings, LogOut } from 'lucide-react';
+import { Menu, Bell, Settings, LogOut } from 'lucide-react';
 import Sidebar from './Sidebar';
 
 const Layout = ({ children }) => {
@@ -29,11 +29,6 @@ const Layout = ({ children }) => {
   const handleLogout = async () => {
     await logout();
     navigate('/login');
-  };
-
-  const handleProfile = () => {
-    setUserDropdownOpen(false);
-    navigate('/settings');
   };
 
   return (
@@ -120,15 +115,6 @@ const Layout = ({ children }) => {
 
                     {/* Menu Items */}
                     <div className="py-1">
-                      <button
-                        onClick={handleProfile}
-                        className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 
-                          hover:bg-gray-50 transition-colors"
-                      >
-                        <User className="w-4 h-4 text-gray-500" />
-                        <span>Profile</span>
-                      </button>
-
                       <button
                         onClick={() => {
                           setUserDropdownOpen(false);

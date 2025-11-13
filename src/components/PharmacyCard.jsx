@@ -104,7 +104,7 @@ const PharmacyCard = ({ pharmacy, onEdit, onDelete }) => {
         <div className="flex space-x-1.5 sm:space-x-2 pt-2 sm:pt-2.5 border-t border-gray-100">
           <button
             onClick={() => onEdit(pharmacy)}
-            className="flex-1 flex items-center justify-center space-x-1 bg-teal-50 hover:bg-teal-100 text-teal-700 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg transition-colors font-medium text-xs sm:text-sm"
+            className="flex-1 flex items-center justify-center space-x-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg transition-colors font-medium text-xs sm:text-sm"
           >
             <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />

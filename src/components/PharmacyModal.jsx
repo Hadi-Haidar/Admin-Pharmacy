@@ -175,7 +175,6 @@ const PharmacyModal = ({ pharmacy, onClose, onSave }) => {
                 value={formData.title}
                 onChange={(e) => handleChange('title', e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                placeholder="Green Cross Pharmacy"
                 required
                 minLength={3}
               />
@@ -190,7 +189,6 @@ const PharmacyModal = ({ pharmacy, onClose, onSave }) => {
                 value={formData.description}
                 onChange={(e) => handleChange('description', e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                placeholder="Your trusted neighborhood pharmacy providing quality healthcare products"
                 rows={3}
                 required
                 minLength={10}

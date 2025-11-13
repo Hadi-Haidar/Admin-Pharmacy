@@ -48,6 +48,7 @@ const Dashboard = () => {
   const [userGrowthData, setUserGrowthData] = useState(null);
   const [pharmacyTrendData, setPharmacyTrendData] = useState(null);
   const [userActivityData, setUserActivityData] = useState(null);
+  const [showWelcomeSnake, setShowWelcomeSnake] = useState(true);
   const [pharmacyStatusData, setPharmacyStatusData] = useState(null);
   const [userStatusData, setUserStatusData] = useState(null);
   const [topPharmacies, setTopPharmacies] = useState(null);

@@ -9,6 +9,10 @@ export default {
       screens: {
         'xs': '475px',  // Add this custom breakpoint for larger phones
       },
+      animation: {
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'ping-slow': 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite',
+      },
     },
   },
   plugins: [],

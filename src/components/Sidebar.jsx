@@ -106,9 +106,32 @@ const Sidebar = ({ isOpen, setIsOpen, isCollapsed, setIsCollapsed }) => {
             className="hidden lg:flex items-center gap-3 flex-1 group hover:bg-gray-50 rounded-lg p-2 -ml-2 transition-all duration-200"
             aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
-            {/* Medicine Emoji Logo */}
-            <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-200 group-hover:scale-105">
-              <span className="text-2xl">💊</span>
+            {/* Enhanced Professional Pharmacy Logo */}
+            <div className="relative w-10 h-10 flex items-center justify-center flex-shrink-0">
+              {/* Animated gradient background with pulse */}
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-600 rounded-xl shadow-md group-hover:shadow-2xl transition-all duration-500 group-hover:scale-110 animate-pulse-slow"></div>
+              
+              {/* Outer glow ring */}
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-300 to-teal-400 rounded-xl blur-md opacity-30 group-hover:opacity-60 transition-all duration-500 animate-pulse-slow"></div>
+              
+              {/* Glass morphism overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-xl"></div>
+              
+              {/* Medical cross background (subtle) */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-10">
+                <div className="w-5 h-1.5 bg-white rounded-full"></div>
+                <div className="absolute w-1.5 h-5 bg-white rounded-full"></div>
+              </div>
+              
+              {/* Main Pill Icon with rotation animation on hover */}
+              <Pill className="w-6 h-6 text-white relative z-10 drop-shadow-2xl transition-all duration-500 group-hover:rotate-12 group-hover:scale-110" strokeWidth={2.5} />
+              
+              {/* Multiple accent dots forming a pattern */}
+              <div className="absolute top-1 right-1 w-1.5 h-1.5 bg-lime-300 rounded-full opacity-90 animate-ping-slow"></div>
+              <div className="absolute top-1 right-1 w-1.5 h-1.5 bg-lime-400 rounded-full opacity-80"></div>
+              
+              {/* Bottom shimmer effect */}
+              <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/10 to-transparent rounded-b-xl"></div>
             </div>
             
             <h1 className={`font-semibold text-gray-900 text-sm transition-all duration-300 flex-1 text-left
@@ -127,8 +150,31 @@ const Sidebar = ({ isOpen, setIsOpen, isCollapsed, setIsCollapsed }) => {
 
           {/* Logo Area - Mobile (no toggle) */}
           <div className="lg:hidden flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
-              <span className="text-2xl">💊</span>
+            <div className="relative w-10 h-10 flex items-center justify-center flex-shrink-0">
+              {/* Animated gradient background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-600 rounded-xl shadow-md animate-pulse-slow"></div>
+              
+              {/* Outer glow ring */}
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-300 to-teal-400 rounded-xl blur-md opacity-30 animate-pulse-slow"></div>
+              
+              {/* Glass morphism overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-xl"></div>
+              
+              {/* Medical cross background (subtle) */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-10">
+                <div className="w-5 h-1.5 bg-white rounded-full"></div>
+                <div className="absolute w-1.5 h-5 bg-white rounded-full"></div>
+              </div>
+              
+              {/* Main Pill Icon */}
+              <Pill className="w-6 h-6 text-white relative z-10 drop-shadow-2xl" strokeWidth={2.5} />
+              
+              {/* Accent dots */}
+              <div className="absolute top-1 right-1 w-1.5 h-1.5 bg-lime-300 rounded-full opacity-90 animate-ping-slow"></div>
+              <div className="absolute top-1 right-1 w-1.5 h-1.5 bg-lime-400 rounded-full opacity-80"></div>
+              
+              {/* Bottom shimmer */}
+              <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/10 to-transparent rounded-b-xl"></div>
             </div>
             <h1 className="font-semibold text-gray-900 text-sm">
               Pharmacy Admin
