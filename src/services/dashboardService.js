@@ -1,31 +1,109 @@
 // src/services/dashboardService.js
 
-// Mock data for design/development
-const mockStats = {
-  totalPharmacies: 45,
-  totalMedicines: 230,
-  totalUsers: 520,
-  activeReports: 18,
-};
-
-const mockActivities = [
-  { id: 1, action: 'New pharmacy added', timestamp: '2 hours ago' },
-  { id: 2, action: 'Medicine updated', timestamp: '5 hours ago' },
-  { id: 3, action: 'User registered', timestamp: '1 day ago' },
-];
+import api from './api';
 
 export const dashboardService = {
-  // Get dashboard statistics
+  /**
+   * Get comprehensive dashboard statistics
+   */
   async getStats() {
-    // Simulate network delay for realistic feel
-    await new Promise(resolve => setTimeout(resolve, 300));
-    return mockStats;
+    try {
+      const response = await api.get('/admin/dashboard/stats');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching dashboard stats:', error);
+      throw new Error(error.response?.data?.message || 'Failed to fetch dashboard statistics');
+    }
   },
 
-  // Get recent activities
-  async getRecentActivities(limit = 10) {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 300));
-    return mockActivities.slice(0, limit);
+  /**
+   * Get user growth data for the last 12 months
+   */
+  async getUserGrowthData() {
+    try {
+      const response = await api.get('/admin/dashboard/user-growth');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching user growth data:', error);
+      throw new Error(error.response?.data?.message || 'Failed to fetch user growth data');
+    }
+  },
+
+  /**
+   * Get pharmacy registration trend for the last 12 months
+   */
+  async getPharmacyTrendData() {
+    try {
+      const response = await api.get('/admin/dashboard/pharmacy-trend');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching pharmacy trend data:', error);
+      throw new Error(error.response?.data?.message || 'Failed to fetch pharmacy trend data');
+    }
+  },
+
+  /**
+   * Get user activity data for the last 7 days
+   */
+  async getUserActivityData() {
+    try {
+      const response = await api.get('/admin/dashboard/user-activity');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching user activity data:', error);
+      throw new Error(error.response?.data?.message || 'Failed to fetch user activity data');
+    }
+  },
+
+  /**
+   * Get pharmacy status distribution
+   */
+  async getPharmacyStatusData() {
+    try {
+      const response = await api.get('/admin/dashboard/pharmacy-status');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching pharmacy status data:', error);
+      throw new Error(error.response?.data?.message || 'Failed to fetch pharmacy status data');
+    }
+  },
+
+  /**
+   * Get user status distribution
+   */
+  async getUserStatusData() {
+    try {
+      const response = await api.get('/admin/dashboard/user-status');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching user status data:', error);
+      throw new Error(error.response?.data?.message || 'Failed to fetch user status data');
+    }
+  },
+
+  /**
+   * Get most active pharmacies (top 6)
+   */
+  async getTopPharmacies() {
+    try {
+      const response = await api.get('/admin/dashboard/top-pharmacies');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching top pharmacies:', error);
+      throw new Error(error.response?.data?.message || 'Failed to fetch top pharmacies');
+    }
+  },
+
+  /**
+   * Get monthly comparison data
+   */
+  async getMonthlyComparison() {
+    try {
+      const response = await api.get('/admin/dashboard/monthly-comparison');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching monthly comparison:', error);
+      throw new Error(error.response?.data?.message || 'Failed to fetch monthly comparison');
+    }
   },
 };
