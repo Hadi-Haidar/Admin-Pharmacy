@@ -15,7 +15,7 @@ const Settings = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Settings</h1>
+      <h1 className="text-2xl sm:text-3xl font-bold text-gray-900" style={{ fontFamily: "'Montserrat', 'Helvetica Neue', sans-serif", letterSpacing: '-0.02em' }}>Settings</h1>
 
       <div className="bg-white rounded-xl shadow-md overflow-hidden">
         {/* Tabs */}

@@ -140,7 +140,7 @@ const Users = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">User Management</h1>
+          <h1 className="text-3xl font-bold text-gray-900" style={{ fontFamily: "'Montserrat', 'Helvetica Neue', sans-serif", letterSpacing: '-0.02em' }}>User Management</h1>
           <p className="text-gray-500 mt-1">Manage users, subscriptions, and account status</p>
           {statistics && (
             <div className="flex items-center gap-4 mt-2 text-sm">
