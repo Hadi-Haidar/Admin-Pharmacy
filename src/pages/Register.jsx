@@ -142,77 +142,9 @@ const Register = () => {
       <div className={`w-full max-w-md relative z-10 transition-all duration-1000 transform ${
         mounted ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-10 opacity-0 scale-95'
       }`}>
-        {/* Pharmacy Logo Badge - Exact International Design */}
+        {/* Pharmacy Title */}
         <div className="text-center mb-8">
-          <div className="relative inline-block">
-            {/* Glow Effect */}
-            <div className="absolute inset-0 bg-emerald-400 blur-3xl opacity-50 animate-pulse"></div>
-            
-            {/* Green Cross with White Bowl of Hygieia - Exact Match */}
-            <div className="relative inline-flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
-              <svg className="w-36 h-36 drop-shadow-2xl" viewBox="0 0 140 140" fill="none">
-                {/* Green Cross Background */}
-                <g>
-                  {/* Horizontal bar of cross */}
-                  <rect x="25" y="56" width="90" height="28" fill="#16a34a" rx="4">
-                    <animate attributeName="fill" values="#16a34a;#059669;#16a34a" dur="3s" repeatCount="indefinite" />
-                  </rect>
-                  {/* Vertical bar of cross */}
-                  <rect x="56" y="25" width="28" height="90" fill="#16a34a" rx="4">
-                    <animate attributeName="fill" values="#16a34a;#059669;#16a34a" dur="3s" repeatCount="indefinite" />
-                  </rect>
-                </g>
-                
-                {/* White Bowl of Hygieia Symbol */}
-                <g transform="translate(70, 70)">
-                  {/* Bowl/Cup Base */}
-                  <ellipse cx="0" cy="12" rx="16" ry="4" fill="white" opacity="0.95"/>
-                  {/* Bowl Body */}
-                  <path d="M -14 2 Q -15 9 -14 12 L 14 12 Q 15 9 14 2 Z" fill="white" stroke="white" strokeWidth="1"/>
-                  {/* Bowl Rim */}
-                  <ellipse cx="0" cy="2" rx="16" ry="4.5" fill="white"/>
-                  
-                  {/* Central Staff/Rod */}
-                  <rect x="-1.5" y="-20" width="3" height="24" fill="white" rx="1.5"/>
-                  
-                  {/* Snake Coiled Around Staff */}
-                  <g stroke="white" strokeWidth="3.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                    {/* Bottom coil - left side */}
-                    <path d="M -12 10 Q -14 6 -12 2 Q -10 -1 -6 -2"/>
-                    {/* Middle coil - crossing */}
-                    <path d="M -6 -2 Q -2 -3 2 -4 Q 6 -5 10 -3"/>
-                    {/* Top coil - right side */}
-                    <path d="M 10 -3 Q 12 0 11 4 Q 10 7 6 9">
-                      <animate attributeName="stroke-dasharray" values="0,100;50,50" dur="3s" repeatCount="indefinite" />
-                    </path>
-                    {/* Going up to head */}
-                    <path d="M 6 9 Q 3 6 2 2 Q 1 -4 0 -12"/>
-                  </g>
-                  
-                  {/* Snake Head */}
-                  <g transform="translate(0, -14)">
-                    {/* Head shape */}
-                    <ellipse cx="0" cy="0" rx="3.5" ry="4.5" fill="white"/>
-                    <ellipse cx="0" cy="-1" rx="3" ry="4" fill="white"/>
-                    {/* Eyes */}
-                    <circle cx="-1.5" cy="-1.5" r="0.7" fill="#16a34a"/>
-                    <circle cx="1.5" cy="-1.5" r="0.7" fill="#16a34a"/>
-                    {/* Forked tongue */}
-                    <g stroke="#16a34a" strokeWidth="0.7" fill="none">
-                      <path d="M 0 2.5 L 0 5 M 0 5 L -1.2 6.5 M 0 5 L 1.2 6.5">
-                        <animate attributeName="opacity" values="1;0.4;1" dur="1.5s" repeatCount="indefinite" />
-                      </path>
-                    </g>
-                  </g>
-                  
-                  {/* Highlight on bowl for depth */}
-                  <ellipse cx="-5" cy="5" rx="4" ry="6" fill="white" opacity="0.6"/>
-                </g>
-              </svg>
-            </div>
-          </div>
-          
-          <h1 className="text-4xl font-bold mt-6 mb-2" style={{ color: '#16a34a' }}>
+          <h1 className="text-4xl font-bold mb-2" style={{ color: '#16a34a' }}>
             PHARMACY
           </h1>
           <p className="text-emerald-700 font-medium text-sm tracking-wide">
@@ -231,9 +163,6 @@ const Register = () => {
             <h2 className="text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-900 bg-clip-text text-transparent mb-2">
               Create Your Account
             </h2>
-            <p className="text-gray-600 text-base">
-              Start managing your pharmacy network today
-            </p>
           </div>
 
           {/* Error Message */}
@@ -265,7 +194,6 @@ const Register = () => {
                   value={formData.name}
                   onChange={handleChange}
                   className="w-full pl-12 pr-4 py-3.5 bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 rounded-2xl text-gray-900 placeholder-gray-400 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-100 outline-none transition-all duration-300 font-medium shadow-sm hover:shadow-md"
-                  placeholder="Enter your full name"
                   required
                 />
               </div>
@@ -286,7 +214,6 @@ const Register = () => {
                   value={formData.email}
                   onChange={handleChange}
                   className="w-full pl-12 pr-4 py-3.5 bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 rounded-2xl text-gray-900 placeholder-gray-400 focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100 outline-none transition-all duration-300 font-medium shadow-sm hover:shadow-md"
-                  placeholder="admin@pharmacy.com"
                   required
                 />
               </div>
@@ -307,7 +234,6 @@ const Register = () => {
                   value={formData.password}
                   onChange={handleChange}
                   className="w-full pl-12 pr-12 py-3.5 bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 rounded-2xl text-gray-900 placeholder-gray-400 focus:border-teal-400 focus:ring-4 focus:ring-teal-100 outline-none transition-all duration-300 font-medium shadow-sm hover:shadow-md"
-                  placeholder="Minimum 6 characters"
                   required
                   minLength={6}
                 />
@@ -336,7 +262,6 @@ const Register = () => {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   className="w-full pl-12 pr-12 py-3.5 bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 rounded-2xl text-gray-900 placeholder-gray-400 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-100 outline-none transition-all duration-300 font-medium shadow-sm hover:shadow-md"
-                  placeholder="Re-enter your password"
                   required
                 />
                 <button

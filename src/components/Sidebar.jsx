@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {
+  Sparkles,
   LayoutDashboard,
   Store,
   Pill,
@@ -40,6 +41,11 @@ const Sidebar = ({ isOpen, setIsOpen, isCollapsed, setIsCollapsed }) => {
   };
 
   const menuItems = [
+    {
+      name: 'Overview',
+      path: '/overview',
+      icon: Sparkles,
+    },
     {
       name: 'Dashboard',
       path: '/dashboard',

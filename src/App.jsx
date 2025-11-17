@@ -6,11 +6,12 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Overview from './pages/Overview';
 import Dashboard from './pages/Dashboard';
 import Pharmacies from './pages/Pharmacies';
 import Medicines from './pages/Medicines';
 import Users from './pages/Users';
-import Data from './pages/Data'; // ADD THIS LINE
+import Data from './pages/Data';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
 
@@ -27,6 +28,17 @@ function App() {
           <Route path="/register" element={<Register />} />
           
           {/* Protected routes with Layout */}
+          <Route
+            path="/overview"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Overview />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          
           <Route
             path="/dashboard"
             element={
