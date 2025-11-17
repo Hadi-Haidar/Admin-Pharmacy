@@ -69,7 +69,7 @@ const Register = () => {
       setSuccess(true);
       
       setTimeout(() => {
-        navigate('/dashboard');
+        navigate('/overview');
       }, 1800);
     } catch (err) {
       setError(err.message || 'Registration failed. Please try again.');
@@ -130,7 +130,7 @@ const Register = () => {
               </div>
               <CheckCircle2 className="w-24 h-24 text-emerald-500 mx-auto relative animate-checkmark" />
             </div>
-            <h3 className="text-3xl font-bold text-gray-900 mt-6 mb-2">Account Created! 🎉</h3>
+            <h3 className="text-3xl font-bold text-gray-900 mt-6 mb-2">Account Created!</h3>
             <p className="text-gray-600 text-lg">Welcome to Pharmacy Admin Portal</p>
             <div className="mt-6 flex justify-center">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
