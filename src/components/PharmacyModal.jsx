@@ -36,9 +36,9 @@ const PharmacyModal = ({ pharmacy, onClose, onSave }) => {
         description: pharmacy.description || '',
         imageUrl: pharmacy.imageUrl || '',
         location: pharmacy.location || { latitude: 33.8938, longitude: 35.5018, address: '' },
-        ownerEmail: '', // Don't pre-fill for security
+        ownerEmail: pharmacy.ownerEmail || pharmacy.owner?.email || '', // Show current email when editing
         ownerPassword: '', // Don't pre-fill for security
-        ownerName: '',
+        ownerName: pharmacy.ownerName || pharmacy.owner?.name || '',
         workingHours: pharmacy.workingHours || [],
         status: pharmacy.status || 'active',
       });
@@ -116,6 +116,19 @@ const PharmacyModal = ({ pharmacy, onClose, onSave }) => {
         ...formData,
         imageUrl: imageUrl || formData.imageUrl,
       };
+
+      // If updating, remove empty owner fields to avoid validation errors
+      if (pharmacy) {
+        if (!dataToSubmit.ownerEmail?.trim()) {
+          delete dataToSubmit.ownerEmail;
+        }
+        if (!dataToSubmit.ownerPassword?.trim()) {
+          delete dataToSubmit.ownerPassword;
+        }
+        if (!dataToSubmit.ownerName?.trim()) {
+          delete dataToSubmit.ownerName;
+        }
+      }
 
       let result;
       if (pharmacy) {
