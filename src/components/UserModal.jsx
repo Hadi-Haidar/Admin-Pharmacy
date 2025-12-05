@@ -7,6 +7,7 @@ const UserModal = ({ onClose, onSave }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    password: '',
     location: {
       latitude: '',
       longitude: '',
@@ -44,6 +45,7 @@ const UserModal = ({ onClose, onSave }) => {
       const userData = {
         name: formData.name,
         email: formData.email,
+        password: formData.password,
       };
 
       // Only add location if checkbox is checked and fields are filled
@@ -119,6 +121,22 @@ const UserModal = ({ onClose, onSave }) => {
                 onChange={(e) => handleChange('email', e.target.value)}
                 className="w-full px-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
                 required
+              />
+            </div>
+
+            {/* Password */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Password *
+              </label>
+              <input
+                type="password"
+                value={formData.password}
+                onChange={(e) => handleChange('password', e.target.value)}
+                className="w-full px-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
+                required
+                minLength={6}
+                placeholder="Minimum 6 characters"
               />
             </div>
 
